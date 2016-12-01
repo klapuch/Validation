@@ -8,7 +8,7 @@ namespace Klapuch\Validation;
 final class EmptyRule implements Rule {
 	public function satisfied($subject): bool {
 		return $this->isArray($subject)
-			? !$subject || array_filter($subject, [$this, 'satisfied'])
+			? array_filter($subject, [$this, 'satisfied']) === $subject
 			: !strlen(trim((string)$subject));
 	}
 

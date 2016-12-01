@@ -36,6 +36,8 @@ final class EmptyRule extends Tester\TestCase {
 			[[]],
 			[['', '']],
 			[[[], []]],
+			[['  ', '  ']],
+			[[[' '], [' ']]],
 		];
 	}
 
@@ -49,9 +51,11 @@ final class EmptyRule extends Tester\TestCase {
 			[1],
 			['    0'],
 			[[0, 0]],
+			[['a', 'b']],
+			[['b', '']],
+			[['', 'b']],
 		];
 	}
-
 }
 
 
