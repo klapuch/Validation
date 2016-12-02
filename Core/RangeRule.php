@@ -19,22 +19,6 @@ final class RangeRule implements Rule {
 	}
 
 	public function satisfied($subject): bool {
-		return in_array($subject, range($this->min(), $this->max()), true);
-	}
-
-	/**
-	 * The real top border from the range
-	 * @return int|string
-	 */
-	private function min() {
-		return max($this->min, $this->max);
-	}
-
-	/**
-	 * The real bottom border from the range
-	 * @return int|string
-	 */
-	private function max() {
-		return min($this->min, $this->max);
+		return in_array($subject, range($this->min, $this->max), true);
 	}
 }
