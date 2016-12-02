@@ -62,6 +62,13 @@ final class NumericRule extends Tester\TestCase {
 		Assert::false((new Validation\NumericRule())->satisfied([]));
 		Assert::false((new Validation\NumericRule())->satisfied(md5('foo')));
 	}
+
+	public function testMixedDigitsWithLetters() {
+		Assert::false((new Validation\NumericRule())->satisfied('4foo'));
+		Assert::false((new Validation\NumericRule())->satisfied('foo4'));
+		Assert::false((new Validation\NumericRule())->satisfied('4foo4'));
+		Assert::false((new Validation\NumericRule())->satisfied('fo4o'));
+	}
 }
 
 
