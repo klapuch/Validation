@@ -27,7 +27,6 @@ final class NegateRule extends Tester\TestCase {
 			))->satisfied('abc')
 		);
 	}
-
 }
 
 
