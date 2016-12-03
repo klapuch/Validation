@@ -12,52 +12,54 @@ use Klapuch\Validation;
 require __DIR__ . '/../bootstrap.php';
 
 final class EmptyRule extends Tester\TestCase {
-	/**
-	 * @dataProvider voids
-	 */
-	public function testVoids($void) {
-		Assert::true((new Validation\EmptyRule())->satisfied($void));
+	public function testEntirelyEmptySubject() {
+		Assert::true((new Validation\EmptyRule())->satisfied(''));
+		Assert::true((new Validation\EmptyRule())->satisfied(null));
+		Assert::true((new Validation\EmptyRule())->satisfied([]));
+		Assert::true((new Validation\EmptyRule())->satisfied([''], ['']));
+		Assert::true((new Validation\EmptyRule())->satisfied([[], []]));
 	}
 
-	/**
-	 * @dataProvider fills
-	 */
-	public function testFills($fill) {
-		Assert::false((new Validation\EmptyRule())->satisfied($fill));
+	public function testPartiallyEmptySubject() {
+		Assert::false((new Validation\EmptyRule())->satisfied(['a', '']));
+		Assert::false((new Validation\EmptyRule())->satisfied(['', 'a']));
+		Assert::false((new Validation\EmptyRule())->satisfied([[''], 'a']));
+		Assert::false((new Validation\EmptyRule())->satisfied(['a', ['']]));
 	}
 
-	protected function voids(): iterable {
-		return [
-			[''],
-			[' '],
-			[null],
-			[false],
-			['    '],
-			[[]],
-			[['', '']],
-			[[[], []]],
-			[['  ', '  ']],
-			[[[' '], [' ']]],
-		];
+	public function testComparableEmptySubject() {
+		Assert::false((new Validation\EmptyRule())->satisfied(['false', 'false']));
+		Assert::true((new Validation\EmptyRule())->satisfied([false, false]));
+		Assert::true((new Validation\EmptyRule())->satisfied(false));
+		Assert::false((new Validation\EmptyRule())->satisfied('false'));
+		Assert::false((new Validation\EmptyRule())->satisfied(0e123));
+		Assert::false((new Validation\EmptyRule())->satisfied('0e123'));
+		Assert::false((new Validation\EmptyRule())->satisfied(0));
+		Assert::false((new Validation\EmptyRule())->satisfied('0'));
 	}
 
-	protected function fills(): iterable {
-		return [
-			[0],
-			[true],
-			['true'],
-			['false'],
-			[-1],
-			[1],
-			['    0'],
-			[[0, 0]],
-			[['a', 'b']],
-			[['b', '']],
-			[['', 'b']],
-			[['', ['a']]],
-			[[['a'], '']],
-			[[['a'], ['a']]],
-		];
+	public function testSpacyEmptySubject() {
+		Assert::false((new Validation\EmptyRule())->satisfied('    0'));
+		Assert::false((new Validation\EmptyRule())->satisfied('0    '));
+		Assert::true((new Validation\EmptyRule())->satisfied(' '));
+		Assert::true((new Validation\EmptyRule())->satisfied('    '));
+		Assert::true((new Validation\EmptyRule())->satisfied(['  ', '  ']));
+		Assert::true((new Validation\EmptyRule())->satisfied([[' '], [' ']]));
+		Assert::true((new Validation\EmptyRule())->satisfied([['   '], ['   ']]));
+	}
+
+	public function testFullyFilledSubject() {
+		Assert::false((new Validation\EmptyRule())->satisfied([0, 0]));
+		Assert::false((new Validation\EmptyRule())->satisfied(['a', 'b']));
+		Assert::false((new Validation\EmptyRule())->satisfied([['a'], ['b']]));
+	}
+
+	public function testSimplyFilledSubject() {
+		Assert::false((new Validation\EmptyRule())->satisfied(true));
+		Assert::false((new Validation\EmptyRule())->satisfied('true'));
+		Assert::false((new Validation\EmptyRule())->satisfied(-1));
+		Assert::false((new Validation\EmptyRule())->satisfied(1));
+		Assert::false((new Validation\EmptyRule())->satisfied(6));
 	}
 }
 
