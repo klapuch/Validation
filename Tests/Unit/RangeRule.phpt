@@ -29,7 +29,7 @@ final class RangeRule extends Tester\TestCase {
 		Assert::true((new Validation\RangeRule(9, 6))->satisfied(9));
 	}
 
-	public function testSameFromTo() {
+	public function testSameMinMax() {
 		Assert::false((new Validation\RangeRule(9, 9))->satisfied(6));
 		Assert::true((new Validation\RangeRule(9, 9))->satisfied(9));
 	}
