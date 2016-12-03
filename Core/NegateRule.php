@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace Klapuch\Validation;
 
 /**
- * Rule for negation origin rule
+ * Negation of the origin rule
  */
 final class NegateRule implements Rule {
 	private $origin;
