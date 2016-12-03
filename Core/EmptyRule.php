@@ -19,6 +19,6 @@ final class EmptyRule implements Rule {
 	 * @return bool
 	 */
 	private function isArray($subject): bool {
-		return (array)$subject === $subject;
+		return $subject === (array)$subject;
 	}
 }
