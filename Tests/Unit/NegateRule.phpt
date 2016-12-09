@@ -13,19 +13,19 @@ require __DIR__ . '/../bootstrap.php';
 
 final class NegateRule extends Tester\TestCase {
 	public function testNegateSatisfiedRule() {
-		Assert::false(
-			(new Validation\NegateRule(
-				new Validation\FakeRule(true)
-			))->satisfied('abc')
-		);
+		list($rule, $subject) = [new Validation\FakeRule(true), 'abc'];
+		Assert::false((new Validation\NegateRule($rule))->satisfied($subject));
+		Assert::exception(function() use($rule, $subject) {
+			(new Validation\NegateRule($rule))->apply($subject);
+		}, \UnexpectedValueException::class, 'The rule is not applicable');
 	}
 
 	public function testNegateRefusedRule() {
-		Assert::true(
-			(new Validation\NegateRule(
-				new Validation\FakeRule(false)
-			))->satisfied('abc')
-		);
+		list($rule, $subject) = [new Validation\FakeRule(false), 'abc'];
+		Assert::true((new Validation\NegateRule($rule))->satisfied($subject));
+		Assert::noError(function() use($rule, $subject) {
+			(new Validation\NegateRule($rule))->apply($subject);
+		});
 	}
 }
 

@@ -10,6 +10,11 @@ final class NumericRule implements Rule {
 		return $this->numeric($subject) && $this->inRange($subject);
 	}
 
+	public function apply($subject): void {
+		if(!$this->satisfied($subject))
+			throw new \UnexpectedValueException('Subject is not numeric');
+	}
+
 	/**
 	 * Can be the subject considered as a numeric value and used for further check?
 	 * @param mixed $subject
@@ -23,7 +28,7 @@ final class NumericRule implements Rule {
 	}
 
 	/**
-	 * Is the number in allowable range? No E or infinitiv?
+	 * Is the number in allowable range? No E or infinitive?
 	 * @param float|int|string $subject
 	 * @return bool
 	 */
@@ -32,4 +37,3 @@ final class NumericRule implements Rule {
 			&& stripos((string)$subject, 'INF') === false;
 	}
 }
-

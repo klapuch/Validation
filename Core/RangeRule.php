@@ -21,4 +21,16 @@ final class RangeRule implements Rule {
 	public function satisfied($subject): bool {
 		return in_array($subject, range($this->min, $this->max), true);
 	}
+
+	public function apply($subject): void {
+		if(!$this->satisfied($subject)) {
+			throw new \UnexpectedValueException(
+				sprintf(
+					'Subject is not in the allowed range from "%s" to "%s"',
+					min($this->min, $this->max),
+					max($this->min, $this->max)
+				)
+			);
+		}
+	}
 }

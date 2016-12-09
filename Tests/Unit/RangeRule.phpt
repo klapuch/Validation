@@ -13,15 +13,45 @@ require __DIR__ . '/../bootstrap.php';
 
 final class RangeRule extends Tester\TestCase {
 	public function testSatisfyingRange() {
-		Assert::true((new Validation\RangeRule(6, 9))->satisfied(7));
+		list($from, $to, $subject) = [6, 9, 7];
+		Assert::true((new Validation\RangeRule($from, $to))->satisfied($subject));
+		Assert::noError(function() use($from, $to, $subject) {
+			(new Validation\RangeRule($from, $to))->apply($subject);
+		});
 	}
 
 	public function testOutOfRange() {
-		Assert::false((new Validation\RangeRule(6, 9))->satisfied(10));
+		list($from, $to, $subject) = [6, 9, 10];
+		Assert::false((new Validation\RangeRule($from, $to))->satisfied($subject));
+		Assert::exception(
+			function() use($from, $to, $subject) {
+				(new Validation\RangeRule($from, $to))->apply($subject);
+			},
+			\UnexpectedValueException::class,
+			'Subject is not in the allowed range from "6" to "9"'
+		);
 	}
 
 	public function testFlippedFromTo() {
 		Assert::true((new Validation\RangeRule(9, 6))->satisfied(7));
+	}
+
+	public function testFlippedFromToDuringApplying() {
+		Assert::exception(
+			function() {
+				(new Validation\RangeRule(9, 6))->apply(1);
+			},
+			\UnexpectedValueException::class,
+			'Subject is not in the allowed range from "6" to "9"'
+		);
+		Assert::exception(
+			function() {
+				(new Validation\RangeRule('s', 'c'))->apply('a');
+			},
+			\UnexpectedValueException::class,
+			'Subject is not in the allowed range from "c" to "s"'
+		);
+
 	}
 
 	public function testEdges() {

@@ -41,6 +41,19 @@ final class CombinedRule extends Tester\TestCase {
 			))->satisfied('abc')
 		);
 	}
+
+	public function testApplications() {
+		Assert::noError(function() {
+			(new Validation\CombinedRule(
+				new Validation\FakeRule(true)
+			))->apply('abc');
+		});
+		Assert::exception(function() {
+			(new Validation\CombinedRule(
+				new Validation\FakeRule(false)
+			))->apply('abc');
+		}, \UnexpectedValueException::class, 'The rule is not applicable');
+	}
 }
 
 

@@ -9,4 +9,12 @@ interface Rule {
 	 * @return bool
 	 */
 	public function satisfied($subject): bool;
+
+	/**
+	 * Apply the rule to the given subject
+	 * @param mixed $subject
+	 * @throws \UnexpectedValueException
+	 * @return void
+	 */
+	public function apply($subject): void;
 }

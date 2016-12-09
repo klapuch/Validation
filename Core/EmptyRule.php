@@ -12,6 +12,11 @@ final class EmptyRule implements Rule {
 			: !strlen(trim((string)$subject));
 	}
 
+	public function apply($subject): void {
+		if(!$this->satisfied($subject))
+			throw new \UnexpectedValueException('Subject is not empty');
+	}
+
 	/**
 	 * Is the given subject an array?
 	 * Faster version of is_array - because of recursion

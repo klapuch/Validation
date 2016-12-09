@@ -20,4 +20,9 @@ final class CombinedRule implements Rule {
 			}
 		) === $this->rules;
 	}
+
+	public function apply($subject): void {
+		if(!$this->satisfied($subject))
+			throw new \UnexpectedValueException('The rule is not applicable');
+	}
 }

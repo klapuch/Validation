@@ -13,7 +13,11 @@ require __DIR__ . '/../bootstrap.php';
 
 final class LengthRule extends Tester\TestCase {
 	public function testStringLengthWithoutSpecialChars() {
-		Assert::true((new Validation\LengthRule(5))->satisfied('hello'));
+		list($length, $subject) = [5, 'hello'];
+		Assert::true((new Validation\LengthRule($length))->satisfied($subject));
+		Assert::noError(function() use($length, $subject) {
+			(new Validation\LengthRule($length))->apply($subject);
+		});
 	}
 
 	public function testStringLengthWithSpecialCharacters() {
@@ -25,7 +29,15 @@ final class LengthRule extends Tester\TestCase {
 	}
 
 	public function testInvalidMatch() {
-		Assert::false((new Validation\LengthRule(-1))->satisfied('foo'));
+		list($length, $subject) = [-1, 'foo'];
+		Assert::false((new Validation\LengthRule($length))->satisfied($subject));
+		Assert::exception(
+			function() use($length, $subject) {
+				(new Validation\LengthRule($length))->apply($subject);
+			},
+			\UnexpectedValueException::class,
+			'Subject is not -1 characters long'
+		);
 	}
 }
 

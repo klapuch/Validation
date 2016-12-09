@@ -7,12 +7,23 @@ namespace Klapuch\Validation;
  */
 final class FakeRule implements Rule {
 	private $satisfied;
+	private $exception;
 
-	public function __construct(bool $satisfied = null) {
+	public function __construct(
+		bool $satisfied = null,
+		\Throwable $exception = null
+	) {
 		$this->satisfied = $satisfied;
+		$this->exception = $exception;
 	}
 
 	public function satisfied($subject): bool {
 		return $this->satisfied;
+	}
+
+	public function apply($subject): void {
+		if($this->exception !== null) {
+			throw $this->exception;
+		}
 	}
 }

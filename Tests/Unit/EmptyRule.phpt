@@ -61,6 +61,16 @@ final class EmptyRule extends Tester\TestCase {
 		Assert::false((new Validation\EmptyRule())->satisfied(1));
 		Assert::false((new Validation\EmptyRule())->satisfied(6));
 	}
+
+	public function testApplications() {
+		Assert::noError(function() {
+			(new Validation\EmptyRule())->apply('');
+		});
+		Assert::exception(function() {
+			(new Validation\EmptyRule())->apply('foo');
+		}, \UnexpectedValueException::class, 'Subject is not empty');
+	}
+
 }
 
 

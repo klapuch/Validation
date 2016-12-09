@@ -69,6 +69,15 @@ final class NumericRule extends Tester\TestCase {
 		Assert::false((new Validation\NumericRule())->satisfied('4foo4'));
 		Assert::false((new Validation\NumericRule())->satisfied('fo4o'));
 	}
+
+	public function testApplications() {
+		Assert::noError(function() {
+			(new Validation\NumericRule())->apply(123);
+		});
+		Assert::exception(function() {
+			(new Validation\NumericRule())->apply('foo');
+		}, \UnexpectedValueException::class, 'Subject is not numeric');
+	}
 }
 
 
