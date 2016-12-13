@@ -3,7 +3,7 @@ declare(strict_types = 1);
 namespace Klapuch\Validation;
 
 /**
- * Chained rule
+ * Chained rules
  */
 final class ChainedRule extends Rules {
 	public function apply($subject): void {
