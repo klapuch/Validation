@@ -64,10 +64,6 @@ final class RangeRule extends Tester\TestCase {
 		Assert::true((new Validation\RangeRule(9, 9))->satisfied(9));
 	}
 
-	public function testTypeSafeRange() {
-		Assert::false((new Validation\RangeRule(6, 9))->satisfied('7'));
-	}
-
 	public function testMixingNumbersWithLetters() {
 		Assert::false((new Validation\RangeRule(6, 9))->satisfied('h'));
 		Assert::false((new Validation\RangeRule('f', 'j'))->satisfied(7));
@@ -93,6 +89,17 @@ final class RangeRule extends Tester\TestCase {
 		Assert::false((new Validation\RangeRule('a', 'z'))->satisfied(false));
 		Assert::false((new Validation\RangeRule('a', 'z'))->satisfied(NULL));
 		Assert::false((new Validation\RangeRule('a', 'z'))->satisfied(0));
+	}
+
+	public function testIgnoringType() {
+		Assert::true((new Validation\RangeRule(1, 30))->satisfied('20'));
+		Assert::true((new Validation\RangeRule('1', '30'))->satisfied(20));
+		Assert::true((new Validation\RangeRule('1', 30))->satisfied('20'));
+		Assert::true((new Validation\RangeRule(1, '30'))->satisfied('20'));
+		Assert::true((new Validation\RangeRule('1', 30))->satisfied(20));
+		Assert::true((new Validation\RangeRule(1, '30'))->satisfied(20));
+		Assert::false((new Validation\RangeRule('a', 'z'))->satisfied(1));
+		Assert::false((new Validation\RangeRule(1, 1000))->satisfied('a'));
 	}
 }
 

@@ -19,7 +19,22 @@ final class RangeRule implements Rule {
 	}
 
 	public function satisfied($subject): bool {
-		return in_array($subject, range($this->min, $this->max), true);
+		return in_array(
+			$subject,
+			range($this->min, $this->max),
+			$this->restricted($subject)
+		);
+	}
+
+	/**
+	 * Is it necessary to restrict the type?
+	 * @param mixed $subject
+	 * @return bool
+	 */
+	private function restricted($subject): bool {
+		return !is_numeric($this->min)
+			|| !is_numeric($this->max)
+			|| !is_numeric($subject);
 	}
 
 	public function apply($subject): void {
