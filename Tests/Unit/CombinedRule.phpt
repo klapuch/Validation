@@ -15,9 +15,11 @@ final class CombinedRule extends Tester\TestCase {
 	public function testAllSatisfiedRules() {
 		Assert::true(
 			(new Validation\CombinedRule(
-				new Validation\FakeRule(true),
-				new Validation\FakeRule(true),
-				new Validation\FakeRule(true)
+				new Validation\ChainedRule(
+					new Validation\FakeRule(true),
+					new Validation\FakeRule(true),
+					new Validation\FakeRule(true)
+				)
 			))->satisfied('abc')
 		);
 	}
@@ -25,9 +27,11 @@ final class CombinedRule extends Tester\TestCase {
 	public function testNoneSatisfiedRule() {
 		Assert::false(
 			(new Validation\CombinedRule(
-				new Validation\FakeRule(false),
-				new Validation\FakeRule(false),
-				new Validation\FakeRule(false)
+				new Validation\ChainedRule(
+					new Validation\FakeRule(false),
+					new Validation\FakeRule(false),
+					new Validation\FakeRule(false)
+				)
 			))->satisfied('abc')
 		);
 	}
@@ -35,9 +39,11 @@ final class CombinedRule extends Tester\TestCase {
 	public function testSomeSatisfiedRule() {
 		Assert::false(
 			(new Validation\CombinedRule(
-				new Validation\FakeRule(true),
-				new Validation\FakeRule(false),
-				new Validation\FakeRule(true)
+				new Validation\ChainedRule(
+					new Validation\FakeRule(true),
+					new Validation\FakeRule(false),
+					new Validation\FakeRule(true)
+				)
 			))->satisfied('abc')
 		);
 	}
