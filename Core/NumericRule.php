@@ -11,7 +11,7 @@ final class NumericRule implements Rule {
 	}
 
 	public function apply($subject): void {
-		if(!$this->satisfied($subject))
+		if (!$this->satisfied($subject))
 			throw new \UnexpectedValueException('Subject is not numeric');
 	}
 
@@ -33,7 +33,7 @@ final class NumericRule implements Rule {
 	 * @return bool
 	 */
 	private function inRange($subject): bool {
-		return stripos((string)$subject, 'e') === false
-			&& stripos((string)$subject, 'INF') === false;
+		return stripos((string) $subject, 'e') === false
+			&& stripos((string) $subject, 'INF') === false;
 	}
 }

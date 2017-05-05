@@ -1,13 +1,14 @@
 <?php
+declare(strict_types = 1);
 /**
  * @testCase
  * @phpVersion > 7.1
  */
 namespace Klapuch\Validation\Unit;
 
+use Klapuch\Validation;
 use Tester;
 use Tester\Assert;
-use Klapuch\Validation;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -15,7 +16,7 @@ final class LengthRule extends Tester\TestCase {
 	public function testStringLengthWithoutSpecialChars() {
 		list($length, $subject) = [5, 'hello'];
 		Assert::true((new Validation\LengthRule($length))->satisfied($subject));
-		Assert::noError(function() use($length, $subject) {
+		Assert::noError(function() use ($length, $subject) {
 			(new Validation\LengthRule($length))->apply($subject);
 		});
 	}
@@ -32,7 +33,7 @@ final class LengthRule extends Tester\TestCase {
 		list($length, $subject) = [-1, 'foo'];
 		Assert::false((new Validation\LengthRule($length))->satisfied($subject));
 		Assert::exception(
-			function() use($length, $subject) {
+			function() use ($length, $subject) {
 				(new Validation\LengthRule($length))->apply($subject);
 			},
 			\UnexpectedValueException::class,

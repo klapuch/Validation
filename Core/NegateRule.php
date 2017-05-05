@@ -17,7 +17,7 @@ final class NegateRule implements Rule {
 	}
 
 	public function apply($subject): void {
-		if(!$this->satisfied($subject))
+		if (!$this->satisfied($subject))
 			throw new \UnexpectedValueException('The rule is not applicable');
 	}
 }

@@ -1,13 +1,14 @@
 <?php
+declare(strict_types = 1);
 /**
  * @testCase
  * @phpVersion > 7.1
  */
 namespace Klapuch\Validation\Unit;
 
+use Klapuch\Validation;
 use Tester;
 use Tester\Assert;
-use Klapuch\Validation;
 
 require __DIR__ . '/../bootstrap.php';
 

@@ -9,11 +9,11 @@ final class EmptyRule implements Rule {
 	public function satisfied($subject): bool {
 		return $this->isArray($subject)
 			? array_filter($subject, [$this, 'satisfied']) === $subject
-			: !strlen(trim((string)$subject));
+			: !strlen(trim((string) $subject));
 	}
 
 	public function apply($subject): void {
-		if(!$this->satisfied($subject))
+		if (!$this->satisfied($subject))
 			throw new \UnexpectedValueException('Subject is not empty');
 	}
 
@@ -24,6 +24,6 @@ final class EmptyRule implements Rule {
 	 * @return bool
 	 */
 	private function isArray($subject): bool {
-		return $subject === (array)$subject;
+		return $subject === (array) $subject;
 	}
 }

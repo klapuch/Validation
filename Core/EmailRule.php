@@ -7,11 +7,11 @@ namespace Klapuch\Validation;
  */
 final class EmailRule implements Rule {
 	public function satisfied($subject): bool {
-		return (bool)filter_var($subject, FILTER_VALIDATE_EMAIL);
+		return (bool) filter_var($subject, FILTER_VALIDATE_EMAIL);
 	}
 
 	public function apply($subject): void {
-		if(!$this->satisfied($subject))
+		if (!$this->satisfied($subject))
 			throw new \UnexpectedValueException('Subject is not an email');
 	}
 }

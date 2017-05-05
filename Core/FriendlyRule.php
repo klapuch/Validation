@@ -21,7 +21,7 @@ final class FriendlyRule implements Rule {
 	public function apply($subject): void {
 		try {
 			$this->origin->apply($subject);
-		} catch(\Throwable $exception) {
+		} catch (\Throwable $exception) {
 			throw new \UnexpectedValueException(
 				$this->message,
 				$exception->getCode(),

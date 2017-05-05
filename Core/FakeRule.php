@@ -22,7 +22,7 @@ final class FakeRule implements Rule {
 	}
 
 	public function apply($subject): void {
-		if($this->exception !== null) {
+		if ($this->exception !== null) {
 			throw $this->exception;
 		}
 	}

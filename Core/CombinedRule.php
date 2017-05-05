@@ -17,7 +17,7 @@ final class CombinedRule implements Rule {
 	}
 
 	public function apply($subject): void {
-		if(!$this->origin->satisfied($subject))
+		if (!$this->origin->satisfied($subject))
 			throw new \UnexpectedValueException('The rule is not applicable');
 	}
 }

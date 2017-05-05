@@ -15,14 +15,14 @@ final class ChainedRule implements Rule {
 	public function satisfied($subject): bool {
 		return array_filter(
 			$this->rules,
-			function(Rule $rule) use($subject): bool {
+			function(Rule $rule) use ($subject): bool {
 				return $rule->satisfied($subject) === true;
 			}
 		) === $this->rules;
 	}
 
 	public function apply($subject): void {
-		foreach($this->rules as $rule)
+		foreach ($this->rules as $rule)
 			$rule->apply($subject);
 	}
 }

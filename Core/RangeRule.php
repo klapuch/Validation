@@ -38,7 +38,7 @@ final class RangeRule implements Rule {
 	}
 
 	public function apply($subject): void {
-		if(!$this->satisfied($subject)) {
+		if (!$this->satisfied($subject)) {
 			throw new \UnexpectedValueException(
 				sprintf(
 					'Subject is not in the allowed range from "%s" to "%s"',

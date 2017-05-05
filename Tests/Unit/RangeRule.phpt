@@ -1,13 +1,14 @@
 <?php
+declare(strict_types = 1);
 /**
  * @testCase
  * @phpVersion > 7.1
  */
 namespace Klapuch\Validation\Unit;
 
+use Klapuch\Validation;
 use Tester;
 use Tester\Assert;
-use Klapuch\Validation;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -15,7 +16,7 @@ final class RangeRule extends Tester\TestCase {
 	public function testSatisfyingRange() {
 		list($from, $to, $subject) = [6, 9, 7];
 		Assert::true((new Validation\RangeRule($from, $to))->satisfied($subject));
-		Assert::noError(function() use($from, $to, $subject) {
+		Assert::noError(function() use ($from, $to, $subject) {
 			(new Validation\RangeRule($from, $to))->apply($subject);
 		});
 	}
@@ -24,7 +25,7 @@ final class RangeRule extends Tester\TestCase {
 		list($from, $to, $subject) = [6, 9, 10];
 		Assert::false((new Validation\RangeRule($from, $to))->satisfied($subject));
 		Assert::exception(
-			function() use($from, $to, $subject) {
+			function() use ($from, $to, $subject) {
 				(new Validation\RangeRule($from, $to))->apply($subject);
 			},
 			\UnexpectedValueException::class,
@@ -51,7 +52,6 @@ final class RangeRule extends Tester\TestCase {
 			\UnexpectedValueException::class,
 			'Subject is not in the allowed range from "c" to "s"'
 		);
-
 	}
 
 	public function testEdges() {
@@ -80,14 +80,14 @@ final class RangeRule extends Tester\TestCase {
 	public function testEmptySubjectForNumbers() {
 		Assert::false((new Validation\RangeRule(1, 9))->satisfied(''));
 		Assert::false((new Validation\RangeRule(1, 9))->satisfied(false));
-		Assert::false((new Validation\RangeRule(1, 9))->satisfied(NULL));
+		Assert::false((new Validation\RangeRule(1, 9))->satisfied(null));
 		Assert::false((new Validation\RangeRule(1, 9))->satisfied(0));
 	}
 
 	public function testEmptySubjectForLetters() {
 		Assert::false((new Validation\RangeRule('a', 'z'))->satisfied(''));
 		Assert::false((new Validation\RangeRule('a', 'z'))->satisfied(false));
-		Assert::false((new Validation\RangeRule('a', 'z'))->satisfied(NULL));
+		Assert::false((new Validation\RangeRule('a', 'z'))->satisfied(null));
 		Assert::false((new Validation\RangeRule('a', 'z'))->satisfied(0));
 	}
 

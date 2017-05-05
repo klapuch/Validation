@@ -1,13 +1,14 @@
 <?php
+declare(strict_types = 1);
 /**
  * @testCase
  * @phpVersion > 7.1
  */
 namespace Klapuch\Validation\Unit;
 
+use Klapuch\Validation;
 use Tester;
 use Tester\Assert;
-use Klapuch\Validation;
 
 require __DIR__ . '/../bootstrap.php';
 
@@ -18,7 +19,7 @@ final class EmailRule extends Tester\TestCase {
 	public function testValidEmails($subject) {
 		$rule = new Validation\EmailRule();
 		Assert::true($rule->satisfied($subject));
-		Assert::noError(function() use($rule, $subject) {
+		Assert::noError(function() use ($rule, $subject) {
 			$rule->apply($subject);
 		});
 	}
@@ -29,7 +30,7 @@ final class EmailRule extends Tester\TestCase {
 	public function testInvalidEmails($subject) {
 		$rule = new Validation\EmailRule();
 		Assert::false($rule->satisfied($subject));
-		Assert::exception(function() use($rule, $subject) {
+		Assert::exception(function() use ($rule, $subject) {
 			$rule->apply($subject);
 		}, \UnexpectedValueException::class, 'Subject is not an email');
 	}

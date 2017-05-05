@@ -17,7 +17,7 @@ final class LengthRule implements Rule {
 	}
 
 	public function apply($subject): void {
-		if(!$this->satisfied($subject)) {
+		if (!$this->satisfied($subject)) {
 			throw new \UnexpectedValueException(
 				sprintf(
 					'Subject is not %d characters long',
