@@ -12,7 +12,7 @@
 (new EmptyRule())->satified('abc'); // false
 (new EmptyRule())->satified(''); // true
 (new EmptyRule())->apply('abc'); // \UnexpectedValueException - 'Subject is not empty'
-(new FriendlyRule(new EmptyRule(), 'Not empty!'))->apply('abc'); // \UnexpectedValueException - 'Empty :)'
+(new FriendlyRule(new EmptyRule(), 'Not empty!'))->apply('abc'); // \UnexpectedValueException - 'Not empty!'
 ```
 #### Chained rule
 ```php
