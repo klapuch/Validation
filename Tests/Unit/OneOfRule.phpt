@@ -30,13 +30,16 @@ final class OneOfRule extends Tester\TestCase {
 		Assert::false((new Validation\OneOfRule([true, 'b']))->satisfied('1'));
 		Assert::false((new Validation\OneOfRule(['1', 'b']))->satisfied(true));
 	}
-	public function testApplication() {
+	public function testApplicationMessages() {
 		Assert::noError(function() {
 			(new Validation\OneOfRule([1, 2]))->apply(1);
 		});
 		Assert::exception(function() {
 			(new Validation\OneOfRule(['a', 'b', 1]))->apply('Hello');
-		}, \UnexpectedValueException::class, '"a", "b", "1" set do not contain "Hello"');
+		}, \UnexpectedValueException::class, '"a", "b", "1" set do not contain "Hello" as type string');
+		Assert::exception(function() {
+			(new Validation\OneOfRule(['a', 'b', '1']))->apply(1);
+		}, \UnexpectedValueException::class, '"a", "b", "1" set do not contain "1" as type integer');
 	}
 }
 

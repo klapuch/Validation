@@ -20,7 +20,7 @@ final class OneOfRule implements Rule {
 		if (!$this->satisfied($subject)) {
 			throw new \UnexpectedValueException(
 				sprintf(
-					'%s set do not contain "%s"',
+					'%s set do not contain "%s" as type %s',
 					implode(
 						', ',
 						array_map(
@@ -30,7 +30,8 @@ final class OneOfRule implements Rule {
 							$this->set
 						)
 					),
-					$subject
+					$subject,
+					gettype($subject)
 				)
 			);
 		}
