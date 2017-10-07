@@ -16,8 +16,13 @@ final class NegateRule implements Rule {
 		return !$this->origin->satisfied($subject);
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
+	public function apply($subject) {
 		if (!$this->satisfied($subject))
 			throw new \UnexpectedValueException('The rule is not applicable');
+		return $subject;
 	}
 }

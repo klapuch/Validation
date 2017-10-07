@@ -21,9 +21,14 @@ final class FakeRule implements Rule {
 		return $this->satisfied;
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
+	public function apply($subject) {
 		if ($this->exception !== null) {
 			throw $this->exception;
 		}
+		return $subject;
 	}
 }

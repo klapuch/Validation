@@ -12,9 +12,14 @@ final class EmptyRule implements Rule {
 			: !strlen(trim((string) $subject));
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
+	public function apply($subject) {
 		if (!$this->satisfied($subject))
 			throw new \UnexpectedValueException('Subject is not empty');
+		return $subject;
 	}
 
 	/**

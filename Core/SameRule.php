@@ -16,7 +16,11 @@ final class SameRule implements Rule {
 		return $this->expectation === $subject;
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
+	public function apply($subject) {
 		if (!$this->satisfied($subject)) {
 			throw new \UnexpectedValueException(
 				sprintf(
@@ -26,5 +30,6 @@ final class SameRule implements Rule {
 				)
 			);
 		}
+		return $subject;
 	}
 }

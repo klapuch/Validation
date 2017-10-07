@@ -10,8 +10,13 @@ final class EmailRule implements Rule {
 		return (bool) filter_var($subject, FILTER_VALIDATE_EMAIL);
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return string
+	 */
+	public function apply($subject): string {
 		if (!$this->satisfied($subject))
 			throw new \UnexpectedValueException('Subject is not an email');
+		return $subject;
 	}
 }

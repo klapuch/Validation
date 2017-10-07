@@ -17,11 +17,8 @@ final class EmailRule extends Tester\TestCase {
 	 * @dataProvider validEmails
 	 */
 	public function testValidEmails($subject) {
-		$rule = new Validation\EmailRule();
-		Assert::true($rule->satisfied($subject));
-		Assert::noError(function() use ($rule, $subject) {
-			$rule->apply($subject);
-		});
+		Assert::true((new Validation\EmailRule())->satisfied($subject));
+		Assert::same($subject, (new Validation\EmailRule())->apply($subject));
 	}
 
 	/**

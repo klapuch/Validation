@@ -18,9 +18,13 @@ final class FriendlyRule implements Rule {
 		return $this->origin->satisfied($subject);
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
+	public function apply($subject) {
 		try {
-			$this->origin->apply($subject);
+			return $this->origin->apply($subject);
 		} catch (\Throwable $exception) {
 			throw new \UnexpectedValueException(
 				$this->message,

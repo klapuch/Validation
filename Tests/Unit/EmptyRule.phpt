@@ -17,7 +17,7 @@ final class EmptyRule extends Tester\TestCase {
 		Assert::true((new Validation\EmptyRule())->satisfied(''));
 		Assert::true((new Validation\EmptyRule())->satisfied(null));
 		Assert::true((new Validation\EmptyRule())->satisfied([]));
-		Assert::true((new Validation\EmptyRule())->satisfied([''], ['']));
+		Assert::true((new Validation\EmptyRule())->satisfied([[''], ['']]));
 		Assert::true((new Validation\EmptyRule())->satisfied([[], []]));
 	}
 
@@ -64,9 +64,7 @@ final class EmptyRule extends Tester\TestCase {
 	}
 
 	public function testApplications() {
-		Assert::noError(function() {
-			(new Validation\EmptyRule())->apply('');
-		});
+		Assert::same('', (new Validation\EmptyRule())->apply(''));
 		Assert::exception(function() {
 			(new Validation\EmptyRule())->apply('foo');
 		}, \UnexpectedValueException::class, 'Subject is not empty');

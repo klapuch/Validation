@@ -24,9 +24,7 @@ final class NegateRule extends Tester\TestCase {
 	public function testNegateRefusedRule() {
 		list($rule, $subject) = [new Validation\FakeRule(false), 'abc'];
 		Assert::true((new Validation\NegateRule($rule))->satisfied($subject));
-		Assert::noError(function() use ($rule, $subject) {
-			(new Validation\NegateRule($rule))->apply($subject);
-		});
+		Assert::same($subject, (new Validation\NegateRule($rule))->apply($subject));
 	}
 }
 

@@ -10,9 +10,14 @@ final class NumericRule implements Rule {
 		return $this->numeric($subject) && $this->inRange($subject);
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return int|float|string
+	 */
+	public function apply($subject) {
 		if (!$this->satisfied($subject))
 			throw new \UnexpectedValueException('Subject is not numeric');
+		return $subject;
 	}
 
 	/**

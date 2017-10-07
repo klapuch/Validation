@@ -16,9 +16,7 @@ final class RangeRule extends Tester\TestCase {
 	public function testSatisfyingRange() {
 		list($from, $to, $subject) = [6, 9, 7];
 		Assert::true((new Validation\RangeRule($from, $to))->satisfied($subject));
-		Assert::noError(function() use ($from, $to, $subject) {
-			(new Validation\RangeRule($from, $to))->apply($subject);
-		});
+		Assert::same($subject, (new Validation\RangeRule($from, $to))->apply($subject));
 	}
 
 	public function testOutOfRange() {

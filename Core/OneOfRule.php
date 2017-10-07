@@ -16,7 +16,11 @@ final class OneOfRule implements Rule {
 		return in_array($subject, $this->set, true);
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
+	public function apply($subject) {
 		if (!$this->satisfied($subject)) {
 			throw new \UnexpectedValueException(
 				sprintf(
@@ -35,5 +39,6 @@ final class OneOfRule implements Rule {
 				)
 			);
 		}
+		return $subject;
 	}
 }
