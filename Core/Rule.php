@@ -14,7 +14,7 @@ interface Rule {
 	 * Apply the rule to the given subject
 	 * @param mixed $subject
 	 * @throws \UnexpectedValueException
-	 * @return void
+	 * @return mixed Validated subject
 	 */
-	public function apply($subject): void;
+	public function apply($subject);
 }

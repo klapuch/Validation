@@ -37,7 +37,11 @@ final class RangeRule implements Rule {
 			|| !is_numeric($subject);
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return int|string
+	 */
+	public function apply($subject) {
 		if (!$this->satisfied($subject)) {
 			throw new \UnexpectedValueException(
 				sprintf(
@@ -47,5 +51,6 @@ final class RangeRule implements Rule {
 				)
 			);
 		}
+		return $subject;
 	}
 }

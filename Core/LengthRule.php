@@ -16,7 +16,11 @@ final class LengthRule implements Rule {
 		return mb_strlen($subject, 'UTF-8') === $this->length;
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return string
+	 */
+	public function apply($subject): string {
 		if (!$this->satisfied($subject)) {
 			throw new \UnexpectedValueException(
 				sprintf(
@@ -25,5 +29,6 @@ final class LengthRule implements Rule {
 				)
 			);
 		}
+		return $subject;
 	}
 }

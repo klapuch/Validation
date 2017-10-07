@@ -16,9 +16,7 @@ final class LengthRule extends Tester\TestCase {
 	public function testStringLengthWithoutSpecialChars() {
 		list($length, $subject) = [5, 'hello'];
 		Assert::true((new Validation\LengthRule($length))->satisfied($subject));
-		Assert::noError(function() use ($length, $subject) {
-			(new Validation\LengthRule($length))->apply($subject);
-		});
+		Assert::same($subject, (new Validation\LengthRule($length))->apply($subject));
 	}
 
 	public function testStringLengthWithSpecialCharacters() {

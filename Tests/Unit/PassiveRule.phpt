@@ -20,13 +20,11 @@ final class PassiveRule extends Tester\TestCase {
 		Assert::true((new Validation\PassiveRule())->satisfied(false));
 	}
 
-	public function testAllowingAllAplications() {
-		Assert::noError(function() {
-			(new Validation\PassiveRule())->apply('a');
-			(new Validation\PassiveRule())->apply(1);
-			(new Validation\PassiveRule())->apply(null);
-			(new Validation\PassiveRule())->apply(false);
-		});
+	public function testAllowingAllApplications() {
+		Assert::same('a', (new Validation\PassiveRule())->apply('a'));
+		Assert::same(1, (new Validation\PassiveRule())->apply(1));
+		Assert::same(null, (new Validation\PassiveRule())->apply(null));
+		Assert::same(false, (new Validation\PassiveRule())->apply(false));
 	}
 }
 

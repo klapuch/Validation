@@ -50,11 +50,12 @@ final class CombinedRule extends Tester\TestCase {
 	}
 
 	public function testApplications() {
-		Assert::noError(function() {
+		Assert::same(
+			'abc',
 			(new Validation\CombinedRule(
 				new Validation\FakeRule(true)
-			))->apply('abc');
-		});
+			))->apply('abc')
+		);
 		Assert::exception(function() {
 			(new Validation\CombinedRule(
 				new Validation\FakeRule(false)

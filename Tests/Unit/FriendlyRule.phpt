@@ -14,12 +14,13 @@ require __DIR__ . '/../bootstrap.php';
 
 final class FriendlyRule extends Tester\TestCase {
 	public function testNoErrorForUsingFriendlyMessage() {
-		Assert::noError(function() {
+		Assert::same(
+			'abc',
 			(new Validation\FriendlyRule(
 				new Validation\FakeRule(),
 				'foo'
-			))->apply('abc');
-		});
+			))->apply('abc')
+		);
 	}
 
 	public function testErrorForUsingFriendlyMessage() {

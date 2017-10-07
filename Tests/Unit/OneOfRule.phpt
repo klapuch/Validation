@@ -31,9 +31,7 @@ final class OneOfRule extends Tester\TestCase {
 		Assert::false((new Validation\OneOfRule(['1', 'b']))->satisfied(true));
 	}
 	public function testApplicationMessages() {
-		Assert::noError(function() {
-			(new Validation\OneOfRule([1, 2]))->apply(1);
-		});
+		Assert::same(1, (new Validation\OneOfRule([1, 2]))->apply(1));
 		Assert::exception(function() {
 			(new Validation\OneOfRule(['a', 'b', 1]))->apply('Hello');
 		}, \UnexpectedValueException::class, '"a", "b", "1" set do not contain "Hello" as type string');

@@ -43,12 +43,13 @@ final class ChainedRule extends Tester\TestCase {
 		);
 	}
 
-	public function testApplications() {
-		Assert::noError(function() {
+	public function testApplicationsInGivenOrder() {
+		Assert::same(
+			'abc',
 			(new Validation\ChainedRule(
 				new Validation\FakeRule(null)
-			))->apply('abc');
-		});
+			))->apply('abc')
+		);
 		Assert::exception(function() {
 			(new Validation\ChainedRule(
 				new Validation\FakeRule(null),

@@ -10,9 +10,11 @@ final class PassiveRule implements Rule {
 		return true;
 	}
 
-	public function apply($subject): void {
-		/**
-		 * No implementation needed
-		 */
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
+	public function apply($subject) {
+		return $subject;
 	}
 }

@@ -28,9 +28,7 @@ final class SameRule extends Tester\TestCase {
 	}
 
 	public function testApplication() {
-		Assert::noError(function() {
-			(new Validation\SameRule(1))->apply(1);
-		});
+		Assert::same(1, (new Validation\SameRule(1))->apply(1));
 		Assert::exception(function() {
 			(new Validation\SameRule('Hi'))->apply('Hello');
 		}, \UnexpectedValueException::class, '"Hi" is not same as "Hello"');

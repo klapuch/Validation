@@ -21,8 +21,13 @@ final class ChainedRule implements Rule {
 		) === $this->rules;
 	}
 
-	public function apply($subject): void {
+	/**
+	 * @param mixed $subject
+	 * @return mixed
+	 */
+	public function apply($subject) {
 		foreach ($this->rules as $rule)
 			$rule->apply($subject);
+		return $subject;
 	}
 }
