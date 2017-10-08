@@ -26,8 +26,12 @@ final class ChainedRule implements Rule {
 	 * @return mixed
 	 */
 	public function apply($subject) {
-		foreach ($this->rules as $rule)
-			$rule->apply($subject);
-		return $subject;
+		return array_reduce(
+			$this->rules,
+			function($application, Rule $rule) {
+				return $rule->apply($application);
+			},
+			$subject
+		);
 	}
 }
