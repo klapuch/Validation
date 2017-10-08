@@ -60,6 +60,31 @@ final class ChainedRule extends Tester\TestCase {
 			))->apply('abc');
 		}, \DomainException::class, 'foo');
 	}
+
+	public function testSubsequentApplication() {
+		Assert::same(
+			'ABCd',
+			(new Validation\ChainedRule(
+				new class implements Validation\Rule {
+					public function satisfied($subject): bool {
+					}
+
+					public function apply($subject) {
+						return strtoupper($subject);
+					}
+				},
+				new Validation\FakeRule(null),
+				new class implements Validation\Rule {
+					public function satisfied($subject): bool {
+					}
+
+					public function apply($subject) {
+						return $subject . 'd';
+					}
+				}
+			))->apply('abc')
+		);
+	}
 }
 
 
