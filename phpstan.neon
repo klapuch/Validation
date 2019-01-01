@@ -1,0 +1,7 @@
+includes:
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
+parameters:
+	ignoreErrors:
+		# Fakes, intentional fails
+		- '~Method .+Fake.+::.+\(\) should return .+ but returns .+\|null~'
+		- '~Call to function in_array\(\) requires parameter \#3 to be true\.~' # only for RangeRule

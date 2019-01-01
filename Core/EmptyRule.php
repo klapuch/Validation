@@ -1,15 +1,20 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Validation;
 
 /**
  * Rule for satisfying empty subject
  */
 final class EmptyRule implements Rule {
+	/**
+	 * @param mixed $subject
+	 * @return bool
+	 */
 	public function satisfied($subject): bool {
 		return $this->isArray($subject)
 			? array_filter($subject, [$this, 'satisfied']) === $subject
-			: !strlen(trim((string) $subject));
+			: strlen(trim((string) $subject)) === 0;
 	}
 
 	/**

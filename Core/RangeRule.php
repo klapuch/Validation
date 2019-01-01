@@ -1,12 +1,16 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Validation;
 
 /**
  * Rule for satisfying subject in allowed range
  */
 final class RangeRule implements Rule {
+	/** @var int|string */
 	private $min;
+
+	/** @var int|string */
 	private $max;
 
 	/**
@@ -18,6 +22,10 @@ final class RangeRule implements Rule {
 		$this->max = $max;
 	}
 
+	/**
+	 * @param int|float $subject
+	 * @return bool
+	 */
 	public function satisfied($subject): bool {
 		return in_array(
 			$subject,

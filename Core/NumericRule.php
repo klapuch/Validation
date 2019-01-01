@@ -1,11 +1,16 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Validation;
 
 /**
  * Rule for satisfying numeric characters
  */
 final class NumericRule implements Rule {
+	/**
+	 * @param mixed $subject
+	 * @return bool
+	 */
 	public function satisfied($subject): bool {
 		return $this->numeric($subject) && $this->inRange($subject);
 	}

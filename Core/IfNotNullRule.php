@@ -4,9 +4,9 @@ declare(strict_types = 1);
 namespace Klapuch\Validation;
 
 /**
- * Multiple rules combined together behaving as a single one
+ * Apply rule only for not null subject
  */
-final class CombinedRule implements Rule {
+final class IfNotNullRule implements Rule {
 	/** @var \Klapuch\Validation\Rule */
 	private $origin;
 
@@ -15,20 +15,23 @@ final class CombinedRule implements Rule {
 	}
 
 	/**
-	 * @param mixed $subject
+	 * @param mixed|null $subject
 	 * @return bool
 	 */
 	public function satisfied($subject): bool {
+		if ($subject === null)
+			return true;
 		return $this->origin->satisfied($subject);
 	}
 
 	/**
-	 * @param mixed $subject
-	 * @return mixed
+	 * @param mixed|null $subject
+	 * @throws \UnexpectedValueException
+	 * @return mixed|null
 	 */
 	public function apply($subject) {
-		if (!$this->origin->satisfied($subject))
-			throw new \UnexpectedValueException('The rule is not applicable');
-		return $subject;
+		if ($subject === null)
+			return $subject;
+		return $this->origin->apply($subject);
 	}
 }

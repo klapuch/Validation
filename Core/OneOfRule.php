@@ -1,17 +1,23 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Validation;
 
 /**
  * Allowing one of passed set
  */
 final class OneOfRule implements Rule {
+	/** @var mixed[] */
 	private $set;
 
 	public function __construct(array $set) {
 		$this->set = $set;
 	}
 
+	/**
+	 * @param mixed $subject
+	 * @return bool
+	 */
 	public function satisfied($subject): bool {
 		return in_array($subject, $this->set, true);
 	}
@@ -28,7 +34,7 @@ final class OneOfRule implements Rule {
 					implode(
 						', ',
 						array_map(
-							function(string $one): string {
+							static function(string $one): string {
 								return sprintf('"%s"', $one);
 							},
 							$this->set

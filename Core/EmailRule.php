@@ -1,17 +1,22 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Validation;
 
 /**
  * Rule for satisfying email subject
  */
 final class EmailRule implements Rule {
+	/**
+	 * @param string $subject
+	 * @return bool
+	 */
 	public function satisfied($subject): bool {
 		return (bool) filter_var($subject, FILTER_VALIDATE_EMAIL);
 	}
 
 	/**
-	 * @param mixed $subject
+	 * @param string $subject
 	 * @return string
 	 */
 	public function apply($subject): string {

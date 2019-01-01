@@ -1,17 +1,23 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Validation;
 
 /**
  * Rule for satisfying allowed length
  */
 final class LengthRule implements Rule {
+	/** @var int */
 	private $length;
 
 	public function __construct(int $length) {
 		$this->length = $length;
 	}
 
+	/**
+	 * @param string $subject
+	 * @return bool
+	 */
 	public function satisfied($subject): bool {
 		return mb_strlen($subject, 'UTF-8') === $this->length;
 	}

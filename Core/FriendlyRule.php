@@ -1,12 +1,16 @@
 <?php
 declare(strict_types = 1);
+
 namespace Klapuch\Validation;
 
 /**
  * Rule for making friendly, verbose and comprehensible error message
  */
 final class FriendlyRule implements Rule {
+	/** @var \Klapuch\Validation\Rule */
 	private $origin;
+
+	/** @var string */
 	private $message;
 
 	public function __construct(Rule $origin, string $message) {
@@ -14,6 +18,10 @@ final class FriendlyRule implements Rule {
 		$this->message = $message;
 	}
 
+	/**
+	 * @param mixed $subject
+	 * @return bool
+	 */
 	public function satisfied($subject): bool {
 		return $this->origin->satisfied($subject);
 	}
